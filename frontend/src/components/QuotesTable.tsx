@@ -1,12 +1,13 @@
 import { useState } from "react";
+import type { Quote } from "./FetchQuotes";
 
 interface QuotesTableProps {
-  quotes: any[];
-  setQuotes: React.Dispatch<React.SetStateAction<any[]>>;
+  quotes: Quote[];
+  setQuotes: React.Dispatch<React.SetStateAction<Quote[]>>;
 }
 
 const QuotesTable = ({ quotes, setQuotes }: QuotesTableProps) => {
-  const [editingQuote, setEditingQuote] = useState<any | null>(null);
+  const [editingQuote, setEditingQuote] = useState<Quote | null>(null);
 
   const handleDelete = async (id: string) => {
     try {
@@ -18,12 +19,12 @@ const QuotesTable = ({ quotes, setQuotes }: QuotesTableProps) => {
 
       // Update state
       setQuotes((prev) => prev.filter((q) => q._id !== id));
-    } catch (err: any) {
-      alert(err.message || "Failed to delete quote");
+    } catch (err) {
+      alert(err || "Failed to delete quote");
     }
   };
 
-  const handleUpdate = async (quote: any) => {
+  const handleUpdate = async (quote: Quote) => {
     try {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/api/quotes/${quote._id}`, {
         method: "PATCH",
@@ -41,8 +42,8 @@ const QuotesTable = ({ quotes, setQuotes }: QuotesTableProps) => {
 
       setEditingQuote(null); // Close modal
       alert("Quote updated successfully!");
-    } catch (err: any) {
-      alert(err.message || "Failed to update quote");
+    } catch (err) {
+      alert(err || "Failed to update quote");
     }
   };
 

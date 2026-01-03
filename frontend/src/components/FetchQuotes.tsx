@@ -3,8 +3,14 @@ import AddQuoteForm from "./AddQuoteForm";
 import QuotesTable from "./QuotesTable";
 import FeaturedQuotes from "./FeaturedQuotes";
 
+export interface Quote {
+  _id: string
+  quote: string,
+  author: string
+}
+
 const FetchQuotes = () => {
-  const [quotes, setQuotes] = useState<any[]>([]);
+  const [quotes, setQuotes] = useState<Quote[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -16,7 +22,7 @@ const FetchQuotes = () => {
       setQuotes(data);
       setError(null);
     } catch (err) {
-      setError(err.message || "Failed to fetch quotes");
+      setError(err instanceof Error ? err.message : "Failed to fetch quotes")
     } finally {
       setLoading(false);
     }
