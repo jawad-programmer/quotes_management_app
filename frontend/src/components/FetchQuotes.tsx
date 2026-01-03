@@ -11,7 +11,7 @@ const FetchQuotes = () => {
   // Trigger refresh (after adding or deleting quote)
   const triggerRefresh = async () => {
     try {
-      const res = await fetch("http://localhost:3000/api/quotes");
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/quotes`);
       const data = await res.json();
       setQuotes(data);
       setError(null);

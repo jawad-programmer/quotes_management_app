@@ -10,7 +10,7 @@ const QuotesTable = ({ quotes, setQuotes }: QuotesTableProps) => {
 
   const handleDelete = async (id: string) => {
     try {
-      const res = await fetch(`http://localhost:3000/api/quotes/${id}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/quotes/${id}`, {
         method: "DELETE",
       });
       const data = await res.json();
@@ -25,7 +25,7 @@ const QuotesTable = ({ quotes, setQuotes }: QuotesTableProps) => {
 
   const handleUpdate = async (quote: any) => {
     try {
-      const res = await fetch(`http://localhost:3000/api/quotes/${quote._id}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/quotes/${quote._id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ quote: quote.quote, author: quote.author }),

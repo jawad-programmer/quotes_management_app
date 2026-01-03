@@ -22,7 +22,7 @@ const AddQuoteForm = ({onSuccess}: AddQuoteFormProps) => {
   const sendQuoteToBackend: SubmitHandler<QuoteFormData> = async (formData) => {
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/quotes", // your POST API
+        `${import.meta.env.VITE_API_URL}/api/quotes`, // your POST API
         formData,
         {
           headers: {
